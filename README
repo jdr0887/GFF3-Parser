@@ -1,0 +1,49 @@
+# GFF3-Parser
+
+See...http://www.sequenceontology.org/gff3.shtml
+
+Here is my attempt at providing serialization/deserialization for the
+GFF3 format in java...
+
+GFF3Manager parser = GFF3Manager.getInstance();
+List<GFF3Record> results = parser.deserialize(new File("/tmp", "somefile.gff3"));
+
+You will need to add a repository to your ~/.m2/settings.xml file.
+Here is an example settings.xml:
+
+<settings>
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <repositories>
+	<repository>
+	  <id>renci.repository</id>
+	  <name>renci.repository</name>
+	  <url>http://archiva.renci.org:8080/repository/internal</url>
+	  <releases>
+	    <enabled>true</enabled>
+	  </releases>
+	  <snapshots>
+	    <enabled>false</enabled>
+	  </snapshots>
+	</repository>
+	<repository>
+	  <id>renci.snapshot.repository</id>
+	  <name>renci.repository</name>
+	  <url>http://archiva.renci.org:8080/repository/snapshots</url>
+	  <releases>
+	    <enabled>false</enabled>
+	  </releases>
+	  <snapshots>
+	    <enabled>true</enabled>
+	  </snapshots>
+	</repository>
+      </repositories>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>dev</activeProfile>
+  </activeProfiles>
+</settings>
+
+
