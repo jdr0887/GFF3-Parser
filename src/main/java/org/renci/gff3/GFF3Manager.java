@@ -24,6 +24,10 @@ public class GFF3Manager {
     }
 
     public List<GFF3Record> deserialize(File... gff3Files) {
+        return deserialize(null, gff3Files);
+    }
+
+    public List<GFF3Record> deserialize(Filter filter, File... gff3Files) {
         List<GFF3Record> ret = new ArrayList<GFF3Record>();
         for (File f : gff3Files) {
             try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)))) {
@@ -32,8 +36,11 @@ public class GFF3Manager {
                     if (line.startsWith("#")) {
                         continue;
                     }
-                    GFF3Deserializer deserializer = new GFF3Deserializer(line);
-                    ret.add(deserializer.call());
+                    GFF3Deserializer deserializer = new GFF3Deserializer(line, filter);
+                    GFF3Record record = deserializer.call();
+                    if (record != null) {
+                        ret.add(record);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

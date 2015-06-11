@@ -1,6 +1,5 @@
 package org.renci.gff3;
 
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
 
@@ -11,9 +10,12 @@ public class GFF3Deserializer implements Callable<GFF3Record> {
 
     private String line;
 
-    public GFF3Deserializer(String line) {
+    private Filter filter;
+
+    public GFF3Deserializer(String line, Filter filter) {
         super();
         this.line = line;
+        this.filter = filter;
     }
 
     @Override
@@ -69,6 +71,10 @@ public class GFF3Deserializer implements Callable<GFF3Record> {
 
             }
 
+        }
+
+        if (filter != null && !filter.accept(record)) {
+            return null;
         }
 
         return record;
