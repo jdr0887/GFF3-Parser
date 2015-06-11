@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.renci.gff</groupId>
   <artifactId>gff3-parser</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.2</version>
   <packaging>bundle</packaging>
   <issueManagement>
     <system>GitHub Issues</system>
@@ -25,7 +25,7 @@
     <url>https://github.com/jdr0887/GFF3-Parser</url>
     <developerConnection>scm:git:git@github.com:jdr0887/GFF3-Parser.git</developerConnection>
     <connection>scm:git:git@github.com:jdr0887/GFF3-Parser.git</connection>
-    <tag>HEAD</tag>
+    <tag>gff3-parser-0.0.2</tag>
   </scm>
   <dependencyManagement>
     <dependencies>
