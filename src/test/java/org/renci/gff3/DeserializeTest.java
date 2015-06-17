@@ -13,10 +13,9 @@ public class DeserializeTest {
 
     @Test
     public void test() {
-        GFF3Manager gff3Mgr = GFF3Manager.getInstance();
+        GFF3Manager gff3Mgr = GFF3Manager.getInstance(new File("/tmp", "GCF_000001405.28_knownrefseq_alignments.gff3"));
         long start = System.currentTimeMillis();
-        List<GFF3Record> results = gff3Mgr
-                .deserialize(new File("/tmp", "GCF_000001405.28_knownrefseq_alignments.gff3"));
+        List<GFF3Record> results = gff3Mgr.deserialize();
         long end = System.currentTimeMillis();
         assertTrue(results != null);
         assertTrue(!results.isEmpty());
@@ -27,10 +26,9 @@ public class DeserializeTest {
 
     @Test
     public void testFilter() {
-        GFF3Manager gff3Mgr = GFF3Manager.getInstance();
+        GFF3Manager gff3Mgr = GFF3Manager.getInstance(new File("/tmp", "GCF_000001405.28_knownrefseq_alignments.gff3"));
         long start = System.currentTimeMillis();
-        List<GFF3Record> results = gff3Mgr.deserialize(new AttributeValueFilter("Target", "NM_019105.6"), new File(
-                "/tmp", "GCF_000001405.28_knownrefseq_alignments.gff3"));
+        List<GFF3Record> results = gff3Mgr.deserialize(new AttributeValueFilter("Target", "NM_019105.6"));
         long end = System.currentTimeMillis();
         assertTrue(results != null);
         assertTrue(!results.isEmpty());
@@ -39,5 +37,4 @@ public class DeserializeTest {
         assertTrue(results.get(0).getAttributes().containsKey("Target"));
         // System.out.println(results.get(0));
     }
-
 }
