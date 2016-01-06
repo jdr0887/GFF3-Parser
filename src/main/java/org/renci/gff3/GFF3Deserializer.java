@@ -1,8 +1,8 @@
 package org.renci.gff3;
 
-import java.util.Scanner;
 import java.util.concurrent.Callable;
 
+import org.apache.commons.lang3.StringUtils;
 import org.renci.gff3.model.GFF3Record;
 import org.renci.gff3.model.StrandType;
 
@@ -22,55 +22,51 @@ public class GFF3Deserializer implements Callable<GFF3Record> {
     public GFF3Record call() throws Exception {
         GFF3Record record = new GFF3Record();
 
-        try (Scanner scanner = new Scanner(line).useDelimiter("\t")) {
-            String sequenceId = scanner.next();
-            record.setSequenceId(sequenceId);
+        String[] tabSplit = StringUtils.split(line);
 
-            String source = scanner.next();
-            record.setSource(source);
+        String sequenceId = tabSplit[0];
+        record.setSequenceId(sequenceId);
 
-            String type = scanner.next();
-            record.setType(type);
+        String source = tabSplit[1];
+        record.setSource(source);
 
-            String start = scanner.next();
-            if (!".".equals(start)) {
-                record.setStart(Integer.valueOf(start));
+        String type = tabSplit[2];
+        record.setType(type);
+
+        String start = tabSplit[3];
+        if (!".".equals(start)) {
+            record.setStart(Integer.valueOf(start));
+        }
+
+        String end = tabSplit[4];
+        if (!".".equals(end)) {
+            record.setEnd(Integer.valueOf(end));
+        }
+
+        String score = tabSplit[5];
+        if (!".".equals(score)) {
+            record.setScore(Float.valueOf(score));
+        }
+
+        String strandValue = tabSplit[6];
+        for (StrandType sType : StrandType.values()) {
+            if (sType.getSymbol().equals(strandValue)) {
+                record.setStrand(sType);
             }
+        }
 
-            String end = scanner.next();
-            if (!".".equals(end)) {
-                record.setEnd(Integer.valueOf(end));
-            }
+        String phase = tabSplit[7];
+        if (!".".equals(phase)) {
+            record.setPhase(Integer.valueOf(phase));
+        }
 
-            String score = scanner.next();
-            if (!".".equals(score)) {
-                record.setScore(Float.valueOf(score));
-            }
-
-            String strandValue = scanner.next();
-            for (StrandType sType : StrandType.values()) {
-                if (sType.getSymbol().equals(strandValue)) {
-                    record.setStrand(sType);
-                }
-            }
-
-            String phase = scanner.next();
-            if (!".".equals(phase)) {
-                record.setPhase(Integer.valueOf(phase));
-            }
-
-            String attributes = scanner.next();
-            try (Scanner attributeScanner = new Scanner(attributes).useDelimiter(";")) {
-                while (attributeScanner.hasNext()) {
-                    String attribute = attributeScanner.next();
-                    String[] split = attribute.split("=");
-                    String key = split[0];
-                    String value = split[1];
-                    record.getAttributes().setProperty(key, value);
-                }
-
-            }
-
+        String attributes = tabSplit[8];
+        String[] attributeSplit = StringUtils.split(attributes, ";");
+        for (String attribute : attributeSplit) {
+            String[] split = StringUtils.split(attribute, "=");
+            String key = split[0];
+            String value = split[1];
+            record.getAttributes().put(key, value);
         }
 
         if (filter != null && !filter.accept(record)) {
