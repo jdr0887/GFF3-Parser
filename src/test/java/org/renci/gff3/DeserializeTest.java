@@ -28,11 +28,11 @@ public class DeserializeTest {
     public void testFilter() {
         GFF3Manager gff3Mgr = GFF3Manager.getInstance(new File("/tmp", "GCF_000001405.28_knownrefseq_alignments.gff3"));
         long start = System.currentTimeMillis();
-        List<GFF3Record> results = gff3Mgr.deserialize(new AttributeValueFilter("Target", "NM_019105.6"));
+        List<GFF3Record> results = gff3Mgr.deserialize(new AttributeValueFilter("Target", "NM_020535.3"));
         long end = System.currentTimeMillis();
         assertTrue(results != null);
         assertTrue(!results.isEmpty());
-        assertTrue(results.size() < 300);
+        System.out.println(results.size());
         System.out.println(String.format("%d seconds", (end - start) / 1000));
         assertTrue(results.get(0).getAttributes().containsKey("Target"));
         // System.out.println(results.get(0));
