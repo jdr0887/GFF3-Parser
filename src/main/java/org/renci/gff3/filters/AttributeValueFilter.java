@@ -17,7 +17,7 @@ public class AttributeValueFilter implements Filter {
 
     @Override
     public boolean accept(GFF3Record record) {
-        if (record.getAttributes().containsKey(key) && record.getAttributes().getProperty(key).startsWith(value)) {
+        if (record.getAttributes().containsKey(key) && record.getAttributes().get(key).startsWith(value)) {
             return true;
         }
         return false;

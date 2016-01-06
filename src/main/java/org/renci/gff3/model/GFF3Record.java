@@ -1,7 +1,8 @@
 package org.renci.gff3.model;
 
 import java.io.Serializable;
-import java.util.Properties;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GFF3Record implements Serializable {
 
@@ -23,11 +24,10 @@ public class GFF3Record implements Serializable {
 
     private Integer phase;
 
-    private Properties attributes;
+    private Map<String, String> attributes = new HashMap<String, String>();
 
     public GFF3Record() {
         super();
-        attributes = new Properties();
     }
 
     public String getSequenceId() {
@@ -94,18 +94,18 @@ public class GFF3Record implements Serializable {
         this.phase = phase;
     }
 
-    public Properties getAttributes() {
+    public Map<String, String> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(Properties attributes) {
+    public void setAttributes(Map<String, String> attributes) {
         this.attributes = attributes;
     }
 
     @Override
     public String toString() {
-        return "GFF3Record [sequenceId=" + sequenceId + ", source=" + source + ", type=" + type + ", start=" + start
-                + ", end=" + end + ", score=" + score + ", strand=" + strand + ", phase=" + phase + "]";
+        return String.format("GFF3Record [sequenceId=%s, source=%s, start=%s, end=%s, score=%s, strand=%s, phase=%s]",
+                sequenceId, source, start, end, score, strand, phase);
     }
 
 }
