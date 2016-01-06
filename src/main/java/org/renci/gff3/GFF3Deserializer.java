@@ -60,7 +60,7 @@ public class GFF3Deserializer implements Callable<GFF3Record> {
             record.setPhase(Integer.valueOf(phase));
         }
 
-        String attributes = tabSplit[8];
+        String attributes = line.substring(line.indexOf("ID="), line.length());
         String[] attributeSplit = StringUtils.split(attributes, ";");
         for (String attribute : attributeSplit) {
             String[] split = StringUtils.split(attribute, "=");
