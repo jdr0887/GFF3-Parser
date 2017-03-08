@@ -10,9 +10,9 @@ public class GFF3Deserializer implements Callable<GFF3Record> {
 
     private String line;
 
-    private Filter filter;
+    private GFF3Filter filter;
 
-    public GFF3Deserializer(String line, Filter filter) {
+    public GFF3Deserializer(String line, GFF3Filter filter) {
         super();
         this.line = line;
         this.filter = filter;
