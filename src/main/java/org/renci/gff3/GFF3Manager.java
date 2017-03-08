@@ -37,7 +37,7 @@ public class GFF3Manager {
         return deserialize(null);
     }
 
-    public List<GFF3Record> deserialize(Filter filter) {
+    public List<GFF3Record> deserialize(GFF3Filter filter) {
         List<GFF3Record> ret = new ArrayList<GFF3Record>();
         List<Future<GFF3Record>> futures = new ArrayList<Future<GFF3Record>>();
 
