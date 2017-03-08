@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
-import org.renci.gff3.filters.AttributeValueFilter;
+import org.renci.gff3.filters.GFF3AttributeValueFilter;
 import org.renci.gff3.model.GFF3Record;
 
 public class DeserializeTest {
@@ -28,7 +28,7 @@ public class DeserializeTest {
     public void testFilter() {
         GFF3Manager gff3Mgr = GFF3Manager.getInstance(new File("/tmp", "GCF_000001405.28_knownrefseq_alignments.gff3"));
         long start = System.currentTimeMillis();
-        List<GFF3Record> results = gff3Mgr.deserialize(new AttributeValueFilter("Target", "NM_002229.2"));
+        List<GFF3Record> results = gff3Mgr.deserialize(new GFF3AttributeValueFilter("Target", "NM_002229.2"));
         long end = System.currentTimeMillis();
         assertTrue(results != null);
         assertTrue(!results.isEmpty());
