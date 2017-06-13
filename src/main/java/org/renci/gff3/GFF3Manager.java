@@ -17,27 +17,24 @@ import org.renci.gff3.model.GFF3Record;
 
 public class GFF3Manager {
 
-    private final File gff3File;
-
     private static GFF3Manager instance;
 
-    public static GFF3Manager getInstance(File gff3File) {
+    public static GFF3Manager getInstance() {
         if (instance == null) {
-            instance = new GFF3Manager(gff3File);
+            instance = new GFF3Manager();
         }
         return instance;
     }
 
-    private GFF3Manager(File gff3File) {
+    private GFF3Manager() {
         super();
-        this.gff3File = gff3File;
     }
 
-    public List<GFF3Record> deserialize() {
-        return deserialize(null);
+    public List<GFF3Record> deserialize(File gff3File) {
+        return deserialize(gff3File);
     }
 
-    public List<GFF3Record> deserialize(GFF3Filter filter) {
+    public List<GFF3Record> deserialize(File gff3File, GFF3Filter filter) {
         List<GFF3Record> ret = new ArrayList<GFF3Record>();
         List<Future<GFF3Record>> futures = new ArrayList<Future<GFF3Record>>();
 
