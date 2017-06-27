@@ -36,7 +36,7 @@ public class DeserializeTest {
         assertTrue(results != null);
         assertTrue(!results.isEmpty());
         System.out.println(results.size());
-        System.out.println(String.format("%d seconds", (end - start) / 1000));
+        System.out.println(String.format("%s seconds", (end - start) / 1000D));
         assertTrue(results.get(0).getAttributes().containsKey("Target"));
 
         // System.out.println(results.get(0));
