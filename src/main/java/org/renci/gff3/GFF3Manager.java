@@ -31,7 +31,7 @@ public class GFF3Manager {
     }
 
     public List<GFF3Record> deserialize(File gff3File) {
-        return deserialize(gff3File);
+        return deserialize(gff3File, null);
     }
 
     public List<GFF3Record> deserialize(File gff3File, GFF3Filter filter) {
