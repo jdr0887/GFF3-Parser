@@ -1,5 +1,7 @@
 package org.renci.gff3;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import org.apache.commons.lang3.StringUtils;
@@ -61,13 +63,13 @@ public class GFF3Deserializer implements Callable<GFF3Record> {
         }
 
         String attributes = line.substring(line.indexOf("ID="), line.length());
-        String[] attributeSplit = StringUtils.split(attributes, ";");
-        for (String attribute : attributeSplit) {
+        List<String> attributeSplit = Arrays.asList(StringUtils.split(attributes, ";"));
+        attributeSplit.forEach(attribute -> {
             String[] split = StringUtils.split(attribute, "=");
             String key = split[0];
             String value = split[1];
             record.getAttributes().put(key, value);
-        }
+        });
 
         if (filter != null && !filter.accept(record)) {
             return null;
